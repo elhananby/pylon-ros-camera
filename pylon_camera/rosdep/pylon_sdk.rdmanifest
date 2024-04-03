@@ -5,7 +5,7 @@ install-script: |
   #!/bin/bash
   if ( [ "${PYLON_ROOT}" != "" ] && [ -d "${PYLON_ROOT}" ] ); then
     MAJOR=`${PYLON_ROOT}/bin/pylon-config --version-major`
-    if [ "$MAJOR" = "6"  ]; then
+    if [ "$MAJOR" = "6"  ] || [ "$MAJOR" = "7"  ]; then
       exit 0
     else
       echo "Found an existing Pylon installation in PYLON_ROOT but the version is too low"
@@ -13,7 +13,7 @@ install-script: |
     fi
   fi
 
-  version="6.2.0.21487"
+  version="pylon_7.3.0.27189"
 
   arch="$(uname -m)"
   if [ "$arch" == "armv7l" ]; then
@@ -48,7 +48,7 @@ check-presence-script: |
     if [[ ! -z "$FOUND" ]]; then
       for pylon_install in "$FOUND"; do
         MAJOR=`${pylon_install} --version-major`
-        if [ "$MAJOR" = "6" ]; then
+        if [ "$MAJOR" = "6" ] || [ "$MAJOR" = "7" ]; then
           echo "Found a pylon Installation with version 6 or greater"
           exit 0
         fi
@@ -59,7 +59,7 @@ check-presence-script: |
   else
     if [ -d "${PYLON_ROOT}" ]; then
       MAJOR=`${PYLON_ROOT}/bin/pylon-config --version-major`
-      if [ "$MAJOR" = "6" ]; then
+      if [ "$MAJOR" = "6" ] || [ "$MAJOR" = "7" ]; then
         exit 0
       else
         echo "Found an existing Pylon installation in PYLON_ROOT but the version is too low"
